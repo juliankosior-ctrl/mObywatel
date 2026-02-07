@@ -1,206 +1,274 @@
 <!DOCTYPE html>
 <html lang="pl">
-<style>
-  :root {
-    --bg: #0a2239;
-    --card-dowod: linear-gradient(135deg, #1e3a5f 0%, #0f2b4a 100%);
-    --card-pj: linear-gradient(135deg, #2d5f43 0%, #1a3a2a 100%);
-    --accent: #2196f3;
-    --text: #ffffff;
-    --text-light: rgba(255,255,255,0.88);
-  }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="theme-color" content="#0a2239"/>
+  <title>mObywatel Demo</title>
+  <style>
+    :root {
+      --bg: #0a2239;
+      --card-dowod: linear-gradient(135deg, #1e3a5f 0%, #0f2b4a 100%);
+      --card-pj: linear-gradient(135deg, #2d5f43 0%, #1a3a2a 100%);
+      --accent: #2196f3;
+      --text: white;
+      --text-light: rgba(255,255,255,0.88);
+    }
 
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+    * { margin:0; padding:0; box-sizing:border-box; }
 
-  header {
-    padding: 16px 20px;
-    background: rgba(10,34,57,0.92);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    font-size: 24px;
-    font-weight: 700;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    border-bottom: 1px solid rgba(255,255,255,0.07);
-  }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+    }
 
-  .cards {
-    padding: 20px 16px;
-    flex: 1;
-  }
+    header {
+      padding: 16px 20px;
+      background: rgba(10,34,57,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 24px;
+      font-weight: 700;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
 
-  .card {
-    background: var(--card-dowod);
-    border-radius: 16px;
-    padding: 20px 24px;
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.35);
-    transition: transform 0.14s ease, box-shadow 0.14s ease;
-  }
+    .cards {
+      padding: 20px 16px;
+      flex: 1;
+    }
 
-  .card:active {
-    transform: scale(0.98);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-  }
+    .card {
+      background: var(--card-dowod);
+      border-radius: 16px;
+      padding: 20px 24px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+      transition: transform 0.14s ease, box-shadow 0.14s ease;
+    }
 
-  .card.disabled {
-    opacity: 0.52;
-    pointer-events: none;
-  }
+    .card:active {
+      transform: scale(0.98);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
 
-  .card-icon {
-    font-size: 42px;
-    width: 52px;
-    height: 52px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+    .card.disabled {
+      opacity: 0.52;
+      pointer-events: none;
+    }
 
-  .card h3 {
-    font-size: 19px;
-    font-weight: 600;
-    margin-bottom: 4px;
-  }
+    .card-icon {
+      font-size: 42px;
+      width: 52px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-  .card p {
-    font-size: 15px;
-    opacity: 0.88;
-  }
+    .card h3 {
+      font-size: 19px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
 
-  .dowod-screen {
-    padding: 16px;
-    display: none;
-    flex-direction: column;
-    flex: 1;
-  }
+    .card p {
+      font-size: 15px;
+      opacity: 0.88;
+    }
 
-  .dowod {
-    background: url('https://i.imgur.com/2mQJ8yL.png') center/cover no-repeat;  /* <-- tu możesz zmienić link */
-    border-radius: 20px;
-    padding: 32px 28px;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 14px 40px rgba(0,0,0,0.55);
-    aspect-ratio: 1.586 / 1;
-    max-width: 100%;
-    background-color: #e8f0fe; /* awaryjne tło gdy zdjęcie się nie załaduje */
-  }
+    .dowod-screen {
+      padding: 16px;
+      display: none;
+      flex-direction: column;
+      flex: 1;
+    }
 
-  .avatar {
-    width: 118px;
-    height: 150px;
-    background: rgba(0,0,0,0.08);
-    border-radius: 10px;
-    position: absolute;
-    top: 68px;
-    left: 36px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-    background-size: cover;
-    background-position: center;
-  }
+    .dowod {
+      background: linear-gradient(135deg, #1976d2, #42a5f5);
+      border-radius: 20px;
+      padding: 32px 28px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 14px 40px rgba(0,0,0,0.55);
+      aspect-ratio: 1.586 / 1;
+      max-width: 100%;
+    }
 
-  .dane {
-    position: absolute;
-    top: 75px;
-    left: 174px;
-    color: #000;
-    font-weight: 700;
-    line-height: 1.48;
-  }
+    .avatar {
+      width: 118px;
+      height: 150px;
+      background: rgba(0,0,0,0.08);
+      border-radius: 10px;
+      position: absolute;
+      top: 68px;
+      left: 36px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      background-size: cover;
+      background-position: center;
+    }
 
-  .label {
-    font-size: 13px;
-    opacity: 0.78;
-    margin-bottom: 1px;
-    letter-spacing: 0.3px;
-  }
+    .dane {
+      position: absolute;
+      top: 75px;
+      left: 174px;
+      color: black;
+      font-weight: 700;
+      line-height: 1.48;
+    }
 
-  .value {
-    font-size: 19.5px;
-    letter-spacing: 0.6px;
-  }
+    .label {
+      font-size: 13px;
+      opacity: 0.78;
+      margin-bottom: 1px;
+      letter-spacing: 0.3px;
+    }
 
-  .edit-btn {
-    background: var(--accent);
-    color: white;
-    border: none;
-    padding: 16px 32px;
-    border-radius: 14px;
-    font-size: 17px;
-    font-weight: 600;
-    margin: 28px auto 20px;
-    display: block;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(33,150,243,0.35);
-  }
+    .value {
+      font-size: 19.5px;
+      letter-spacing: 0.6px;
+    }
 
-  .edit-form {
-    background: rgba(30,58,95,0.94);
-    border-radius: 16px;
-    padding: 24px;
-    margin-top: 16px;
-    display: none;
-    backdrop-filter: blur(8px);
-  }
+    .edit-btn {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 16px 32px;
+      border-radius: 14px;
+      font-size: 17px;
+      font-weight: 600;
+      margin: 28px auto 20px;
+      display: block;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(33,150,243,0.35);
+    }
 
-  input {
-    width: 100%;
-    padding: 14px 16px;
-    margin: 12px 0;
-    border-radius: 12px;
-    border: none;
-    font-size: 17px;
-    background: rgba(255,255,255,0.1);
-    color: white;
-  }
+    .edit-form {
+      background: rgba(30,58,95,0.94);
+      border-radius: 16px;
+      padding: 24px;
+      margin-top: 16px;
+      display: none;
+      backdrop-filter: blur(8px);
+    }
 
-  input::placeholder { color: rgba(255,255,255,0.5); }
+    input {
+      width: 100%;
+      padding: 14px 16px;
+      margin: 12px 0;
+      border-radius: 12px;
+      border: none;
+      font-size: 17px;
+      background: rgba(255,255,255,0.1);
+      color: white;
+    }
 
-  .buttons {
-    display: flex;
-    gap: 12px;
-    margin-top: 24px;
-  }
+    input::placeholder { color: rgba(255,255,255,0.5); }
 
-  .btn {
-    flex: 1;
-    padding: 14px;
-    border-radius: 12px;
-    font-size: 17px;
-    font-weight: 600;
-    cursor: pointer;
-    border: none;
-  }
+    .buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
 
-  .btn-save { background: var(--accent); color: white; }
-  .btn-cancel { background: rgba(255,255,255,0.14); color: white; }
+    .btn {
+      flex: 1;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 17px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+    }
 
-  .info {
-    text-align: center;
-    font-size: 13px;
-    opacity: 0.6;
-    margin-top: 32px;
-    padding: 0 20px;
-  }
-</style>
+    .btn-save { background: var(--accent); color: white; }
+    .btn-cancel { background: rgba(255,255,255,0.14); color: white; }
+
+    .info {
+      text-align: center;
+      font-size: 13px;
+      opacity: 0.6;
+      margin-top: 32px;
+      padding: 0 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <span>🇵🇱</span> mObywatel
+  </header>
+
+  <div class="cards" id="home">
+    <div class="card" onclick="pokazDowod()">
+      <div class="card-icon">🪪</div>
+      <div>
+        <h3>Dowód osobisty</h3>
+        <p id="karta-imie-nazwisko">Jan Kowalski</p>
+      </div>
+    </div>
+
+    <div class="card disabled">
+      <div class="card-icon">🚗</div>
+      <div>
+        <h3>Prawo jazdy</h3>
+        <p>W przygotowaniu</p>
+      </div>
+    </div>
+
+    <div class="info">
+      Demonstracyjna wersja – tylko dowód działa
+    </div>
+  </div>
+
+  <div class="dowod-screen" id="dowod">
+    <div class="dowod">
+      <div class="avatar" id="avatar-placeholder"></div>
+      <div class="dane">
+        <div class="label">Nazwisko</div>
+        <div class="value" id="nazwisko-big">KOWALSKI</div>
+
+        <div class="label">Imiona</div>
+        <div class="value" id="imie-big">JAN</div>
+
+        <div class="label">PESEL</div>
+        <div class="value" id="pesel-big">90010112345</div>
+      </div>
+    </div>
+
+    <button class="edit-btn" onclick="edytuj()">Edytuj dane</button>
+
+    <div class="edit-form" id="formularz">
+      <input id="imie" placeholder="Imię" />
+      <input id="nazwisko" placeholder="Nazwisko" />
+      <input id="pesel" placeholder="PESEL" maxlength="11" inputmode="numeric" />
+      <div class="buttons">
+        <button class="btn btn-cancel" onclick="anuluj()">Anuluj</button>
+        <button class="btn btn-save" onclick="zapisz()">Zapisz</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let dane = {
+      imie: "Jan",
+      nazwisko: "Kowalski",
+      pesel: "90010112345"
+    };
 
     function wczytaj() {
       const zapisane = localStorage.getItem("mObywatelDemo");
@@ -208,40 +276,4 @@
       aktualizuj();
     }
 
-    function zapisz() {
-      dane.imie = document.getElementById("imie").value.trim() || "Jan";
-      dane.nazwisko = document.getElementById("nazwisko").value.trim() || "Kowalski";
-      dane.pesel = document.getElementById("pesel").value.trim() || "90010112345";
-      localStorage.setItem("mObywatelDemo", JSON.stringify(dane));
-      document.getElementById("formularz").style.display = "none";
-      aktualizuj();
-    }
-
-    function aktualizuj() {
-      document.getElementById("karta-imie-nazwisko").textContent = dane.imie + " " + dane.nazwisko;
-      document.getElementById("imie-big").textContent = dane.imie.toUpperCase();
-      document.getElementById("nazwisko-big").textContent = dane.nazwisko.toUpperCase();
-      document.getElementById("pesel-big").textContent = dane.pesel;
-    }
-
-    function pokazDowod() {
-      document.getElementById("home").style.display = "none";
-      document.getElementById("dowod").style.display = "flex";
-      aktualizuj();
-    }
-
-    function edytuj() {
-      document.getElementById("imie").value = dane.imie;
-      document.getElementById("nazwisko").value = dane.nazwisko;
-      document.getElementById("pesel").value = dane.pesel;
-      document.getElementById("formularz").style.display = "block";
-    }
-
-    function anuluj() {
-      document.getElementById("formularz").style.display = "none";
-    }
-
-    wczytaj();
-  </script>
-</body>
-</html>
+    fun
